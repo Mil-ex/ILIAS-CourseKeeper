@@ -1,0 +1,2 @@
+login_url: https://ilias3.uni-stuttgart.de/login.php?client_id=Uni_Stuttgart&cmd=force_login&lang=en
+course_links:

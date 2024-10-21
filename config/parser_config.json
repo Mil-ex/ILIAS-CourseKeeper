@@ -1,0 +1,13 @@
+{
+  "login_form": {
+      "username_field": {
+          "name": "login_form/input_3/input_4"
+      },
+      "password_field": {
+          "name": "login_form/input_3/input_5"
+      },
+      "form_attributes": {
+          "name": "login_form"
+      }
+  }
+}

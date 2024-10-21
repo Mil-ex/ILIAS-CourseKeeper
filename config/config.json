@@ -1,25 +1,37 @@
 {
-    "login_form": {
-      "username_field": {
-        "name": "login_form/input_3/input_4"
-      },
-      "password_field": {
-        "name": "login_form/input_3/input_5"
-      },
-      "form_attributes": {
-        "name": "login_form"
-      }
+  "login_url": "https://ilias3.uni-stuttgart.de/login.php?client_id=Uni_Stuttgart&cmd=force_login&lang=en",
+
+  "groups": [
+    "Winter 2024/25"
+  ],
+
+  "output_folder":"C:/Users/alexa/Documents/01_git/ILIAS-CourseKeeper/coursekeeper/out",
+
+  "login_form": {
+    "username_field": {
+      "name": "login_form/input_3/input_4"
     },
-    "dashboard": {
-      "main_content_class": "ilDashboardMainContent",
-      "item_group_class": "il-item-group",
-      "header_tag": "h3"
+    "password_field": {
+      "name": "login_form/input_3/input_5"
     },
-    "login_url": "https://ilias3.uni-stuttgart.de/login.php?client_id=Uni_Stuttgart&cmd=force_login&lang=en",
-    "groups": [
-      "Winter 2024/25",
-      "Group2asf",
-      "Sommer 2024"
-    ]
-  }
+    "form_attributes": {
+      "name": "login_form"
+    }
+  },
   
+  "dashboard": {
+    "dashboard_identifier": "ilDashboardMainContent",
+    "group_identifier": "il-item-group",
+    "group_name_identifier": "h3",
+    "course_identifier": "il-item il-std-item",
+    "course_name_identifier": "il-item-title",
+    "course_hyperlink": "a"
+  },
+
+  "course": {
+    "list_identifier": "ilContainerItemsContainer",
+    "item_identifier": "il_ContainerItemTitle",
+    "item_name": "h3",
+    "item_hyperlink": "a"
+  }
+}

@@ -25,3 +25,10 @@ class Config:
 
     def get_groups(self):
         return self.config_data.get("groups", [])
+
+    def get_output_folder(self):
+        return self.config_data.get('output_folder', None)
+    
+    def get_course_config(self):
+        return self.config_data.get("course", {})
+

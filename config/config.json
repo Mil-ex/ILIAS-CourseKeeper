@@ -1,0 +1,25 @@
+{
+    "login_form": {
+      "username_field": {
+        "name": "login_form/input_3/input_4"
+      },
+      "password_field": {
+        "name": "login_form/input_3/input_5"
+      },
+      "form_attributes": {
+        "name": "login_form"
+      }
+    },
+    "dashboard": {
+      "main_content_class": "ilDashboardMainContent",
+      "item_group_class": "il-item-group",
+      "header_tag": "h3"
+    },
+    "login_url": "https://ilias3.uni-stuttgart.de/login.php?client_id=Uni_Stuttgart&cmd=force_login&lang=en",
+    "groups": [
+      "Winter 2024/25",
+      "Group2asf",
+      "Sommer 2024"
+    ]
+  }
+  

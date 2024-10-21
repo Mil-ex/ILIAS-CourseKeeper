@@ -1,6 +1,5 @@
 from getpass import getpass
 import keyring
-from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from .parser import Parser
 
@@ -31,7 +30,6 @@ class Authenticator:
             print("Credentials deleted from keyring.")
         except keyring.errors.PasswordDeleteError:
             print("No credentials found to delete.")
-
 
     def login(self, session_manager):
         """Log in to ILIAS using the provided session and parser."""
@@ -76,6 +74,10 @@ class Authenticator:
         action_url = urljoin(login_url, action_url)
         login_response = session_manager.session.post(action_url, data=login_data, allow_redirects=True)
 
+        # After login, capture the redirected URL and update the session manager's current URL
+        redirected_url = login_response.url
+        session_manager.set_redirected_url(redirected_url)
+
         # Check if the login was successful by checking if the login form is still present
         response_page = login_response.text
         response_parser = Parser(response_page)
@@ -85,3 +87,4 @@ class Authenticator:
             print("Login failed. The login form is still present.")
         else:
             print("Login successful!")
+

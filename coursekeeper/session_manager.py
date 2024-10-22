@@ -1,27 +1,42 @@
 import requests
+from urllib.parse import urlparse
+from time import sleep
 
 class SessionManager:
     def __init__(self, config):
-        """Initialize the session manager with a session and configuration."""
         self.session = requests.Session()  # Start a session for cookies and persistence
         self.config = config
-        self.login_url = self.config.get_login_url()
-        self.current_url = self.login_url  # Start by tracking the login URL
+        self.redirected_url = None  # Store the redirected URL after login
+        self.used_urls = []
 
-    def fetch_page(self, url):
-        """Fetch a page using the current session and update the current URL."""
-        response = self.session.get(url)
-        if response.status_code == 200:
-            self.current_url = response.url  # Update the current URL to the one fetched
-            return response.text
-        else:
-            print(f"Failed to fetch page. Status code: {response.status_code}")
-            return None
+        # Load the login URL from the config
+        self.login_url = self.config.get("login_url")
+
+    def fetch_page(self, url, retries=3):
+        """Fetch a page using the current session with retry mechanism."""
+        for attempt in range(retries):
+            try:
+                response = self.session.get(url)
+                if response.status_code == 200:
+                    return response.text
+                else:
+                    print(f"Failed to fetch page. Status code: {response.status_code}")
+            except requests.RequestException as e:
+                print(f"Error fetching {url}: {e}. Retrying ({attempt + 1}/{retries})...")
+                sleep(2)  # Wait before retrying
+        return None
+
+    def set_url(self, url):
+        """Set the URL that the session was redirected to after login."""
+        self.used_urls.append(url)
+        self.redirected_url = url
 
     def get_current_url(self):
-        """Return the current URL after redirection."""
-        return self.current_url
+        """Return the current redirected URL."""
+        return self.redirected_url
 
-    def set_redirected_url(self, url):
-        """Set the URL after a redirection, e.g., post-login."""
-        self.current_url = url
+    def get_base_url(self):
+        """Return the base URL from the login or redirected URL."""
+        url = self.redirected_url if self.redirected_url else self.login_url
+        parsed_url = urlparse(url)
+        return f"{parsed_url.scheme}://{parsed_url.netloc}"

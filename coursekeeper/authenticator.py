@@ -36,18 +36,18 @@ class Authenticator:
         username, password = self.get_creds()
         if not username or not password:
             print("No credentials found. Please store them first.")
-            return
+            return False
 
         login_url = session_manager.login_url
         if not login_url:
             print("No login URL found.")
-            return
+            return False
 
         # Fetch login page
         login_page = session_manager.fetch_page(login_url)
         if not login_page:
             print("Failed to load login page.")
-            return
+            return False
 
         # Parse the login page
         parser = Parser(login_page)
@@ -55,13 +55,13 @@ class Authenticator:
 
         if not form:
             print("Login form not found.")
-            return
+            return False
 
         # Find the fields
         username_field, password_field = parser.find_login_fields(form)
         if not username_field or not password_field:
             print("Username or password field not found.")
-            return
+            return False
 
         # Prepare login data
         login_data = {
@@ -76,15 +76,17 @@ class Authenticator:
 
         # After login, capture the redirected URL and update the session manager's current URL
         redirected_url = login_response.url
-        session_manager.set_redirected_url(redirected_url)
+        session_manager.set_url(redirected_url)
 
         # Check if the login was successful by checking if the login form is still present
         response_page = login_response.text
         response_parser = Parser(response_page)
+        print("Checking if logged in successfully by searching for a logging field...")
         response_form = response_parser.find_login_form()
 
         if response_form:
             print("Login failed. The login form is still present.")
+            return False
         else:
             print("Login successful!")
-
+            return True

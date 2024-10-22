@@ -6,29 +6,14 @@ class Config:
         self.config_data = self.load_config()
 
     def load_config(self):
+        """Load the JSON configuration file only once."""
         config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config', 'config.json')
         try:
-            with open(config_path, 'r') as config_file:
+            with open(config_path, 'r', encoding='utf-8') as config_file:
                 return json.load(config_file)
         except FileNotFoundError:
             print("Configuration file not found.")
             return {}
 
-    def get_login_form_config(self):
-        return self.config_data.get("login_form", {})
-
-    def get_dashboard_config(self):
-        return self.config_data.get("dashboard", {})
-
-    def get_login_url(self):
-        return self.config_data.get("login_url", "")
-
-    def get_groups(self):
-        return self.config_data.get("groups", [])
-
-    def get_output_folder(self):
-        return self.config_data.get('output_folder', None)
-    
-    def get_course_config(self):
-        return self.config_data.get("course", {})
-
+    def get(self, key, default=None):
+        return self.config_data.get(key, default)

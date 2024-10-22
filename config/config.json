@@ -2,7 +2,7 @@
   "login_url": "https://ilias3.uni-stuttgart.de/login.php?client_id=Uni_Stuttgart&cmd=force_login&lang=en",
 
   "groups": [
-    "Winter 2024/25"
+    "Abgaben"
   ],
 
   "output_folder":"C:/Users/alexa/Documents/01_git/ILIAS-CourseKeeper/coursekeeper/out",
